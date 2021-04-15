@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "rootDir": "./src",
+      "outDir": "./build",
+      "target": "es2017",
+      "module": "commonjs",
+      "esModuleInterop": true,
+     "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "sourceMap": true
+    },
+    "include": [
+      "**/*.ts"
+    ],
+    "rules": {
+      "no-unused-vars": [1, { "varsIgnorePattern": "^_" }],
+      "@typescript-eslint/no-unused-vars": [1, { "varsIgnorePattern": "^_" }]
+    },
+    "exclude": [
+      "node_modules",
+      "prod_node_modules"
+    ]
+  }
+  
