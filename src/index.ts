@@ -1,8 +1,8 @@
 import fs from 'fs';
 import * as _ from 'lodash';
 import moment from 'moment';
-import {Product} from './types/type';
-import {getCategoryUrl} from './utils/util';
+import {Product} from './utils/type';
+import {getCategoryUrl, scrapeMultiPage} from './utils/util';
 
 async function main() {
     try {
@@ -12,6 +12,13 @@ async function main() {
     
         const CATEGORIES:string[] = await getCategoryUrl('https://estore.caring2u.com/');
         console.log(CATEGORIES);
+
+        for (let i = 0; i <= CATEGORIES.length; i++) {
+            if (CATEGORIES[i] === undefined) {
+                break;
+            }
+            result = result.concat(await scrapeMultiPage(CATEGORIES[i]));
+        }
 
         result = [{"provider_name":"caring","url":"https://estore.caring2u.com/jom-kurang-manis/nfa-insulle-complete-nutrition-850g.html","product_id":"13801","name":"NFA INSULLE COMPLETE NUTRITION 850G","currency":"MYR","price":82.9,"promotion":false,"original_price":null,"promotion_price":null,"unit":"each","is_assorted":false}];
 

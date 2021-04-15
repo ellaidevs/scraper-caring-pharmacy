@@ -5,7 +5,7 @@
       "target": "es2017",
       "module": "commonjs",
       "esModuleInterop": true,
-     "noUnusedLocals": true,
+    //  "noUnusedLocals": true,
       "noUnusedParameters": true,
       "sourceMap": true
     },
