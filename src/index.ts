@@ -2,6 +2,7 @@ import fs from 'fs';
 import * as _ from 'lodash';
 import moment from 'moment';
 import {Product} from './types/type';
+import {getCategoryUrl} from './utils/util';
 
 async function main() {
     try {
@@ -9,6 +10,9 @@ async function main() {
         console.log(fileName);
         let result:Product[] = [];
     
+        const CATEGORIES:string[] = await getCategoryUrl('https://estore.caring2u.com/');
+        console.log(CATEGORIES);
+
         result = [{"provider_name":"caring","url":"https://estore.caring2u.com/jom-kurang-manis/nfa-insulle-complete-nutrition-850g.html","product_id":"13801","name":"NFA INSULLE COMPLETE NUTRITION 850G","currency":"MYR","price":82.9,"promotion":false,"original_price":null,"promotion_price":null,"unit":"each","is_assorted":false}];
 
         const data = result.map((r) => JSON.stringify(r)).join('\n');
