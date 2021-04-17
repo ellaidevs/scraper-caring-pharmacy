@@ -58,7 +58,7 @@ export async function scrapeMultiPage(url: string) {
             const {result} = await scrapePage(scrapeUrl);
             res = res.concat(result);
         } while (i <= await checkLastPage(scrapeUrl));
-        return res = null;
+        return res;
     } catch (err) {
         console.log('Error on scrapeMultiPage', url, err);
     }
