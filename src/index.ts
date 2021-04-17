@@ -2,16 +2,17 @@ import fs from 'fs';
 import * as _ from 'lodash';
 import moment from 'moment';
 import {Product} from './utils/type';
-import {getCategoryUrl, scrapeMultiPage} from './utils/util';
+import {getCategoryUrl, scrapeMultiPage, PROVIDER_NAME} from './utils/util';
+
 
 async function main() {
     try {
-        const fileName: string = `caring${moment().format('YYYYMMDD_HHmmss')}.jsonl`;
+        const fileName: string = `${PROVIDER_NAME}${moment().format('YYYYMMDD_HHmmss')}.jsonl`;
         console.log(fileName);
         let result:Product[] = [];
     
         const CATEGORIES:string[] = await getCategoryUrl('https://estore.caring2u.com/');
-        console.log(CATEGORIES);
+        console.log('Categories to crawl:', CATEGORIES);
 
         for (let i = 0; i <= CATEGORIES.length; i++) {
             if (CATEGORIES[i] === undefined) {
