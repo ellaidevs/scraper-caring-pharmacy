@@ -1,4 +1,3 @@
-import { String } from "aws-sdk/clients/cloudsearch";
 import Cheerio from "cheerio";
 import {Product} from "./type"
 import {fetchHtml, delay, PROVIDER_NAME} from "./util"
@@ -16,7 +15,7 @@ export async function scrapePage(url: string, retries = 1): Promise<{ result: Pr
             const url:string = getProductURL(product);
             let originalPrice = getProductOriginalPrice(product);
             let promoPrice = getProductPromoPrice(product);
-            let priceRaw = getProductPrice(product)
+            let priceRaw = getProductPrice(product);
             const stockBtn = getProductStock(product);
 
             let stock: number;
