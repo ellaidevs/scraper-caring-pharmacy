@@ -1,6 +1,9 @@
 import Cheerio from "cheerio";
 import fetch from "node-fetch";
 import {Product} from "./type"
+import {scrapePage} from "./scraper"
+
+export const PROVIDER_NAME = 'caring';
 
 export async function fetchHtml(url: string): Promise<string> {
     try {
@@ -12,6 +15,13 @@ export async function fetchHtml(url: string): Promise<string> {
     }
 }
 
+export function delay(ms: number): Promise<void> {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
+//get all category url
 export async function getCategoryUrl(url: string) {
     try {
         const htmlBody = await fetchHtml(url);
@@ -26,17 +36,17 @@ export async function getCategoryUrl(url: string) {
         }
         return CATEGORIES;
     } catch (e) {
-        console.log('Error on getCategoryUrl', e)
+        console.log('Error on getCategoryUrl', e);
     }
 }
 
+//scrape multiple pages
 export async function scrapeMultiPage(url: string) {
     try {
         let res: Product[] = [];
 
         let i = 0;
         let scrapeUrl;
-        //scrape not more than the last page
         do {
             i++;
             if (i > 1) {
@@ -45,6 +55,8 @@ export async function scrapeMultiPage(url: string) {
                 scrapeUrl = `${url}`;
             }
             console.log('Current Page:', scrapeUrl);
+            const {result} = await scrapePage(scrapeUrl);
+            res = res.concat(result);
         } while (i <= await checkLastPage(scrapeUrl));
         return res = null;
     } catch (err) {
@@ -52,6 +64,7 @@ export async function scrapeMultiPage(url: string) {
     }
 }
 
+//check pagination status
 export async function checkLastPage(url: string) {
     const htmlBody = await fetchHtml(url);
     const $ = Cheerio.load(htmlBody);
@@ -64,10 +77,4 @@ export async function checkLastPage(url: string) {
         lastPage = parseInt(lastChild);
     }
     return lastPage;
-}
-
-
-async function scrapePage(url) {
-    console.log(url);
-    return null;
 }
